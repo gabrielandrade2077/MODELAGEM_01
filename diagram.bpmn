@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="sid-38422fae-e03e-43a3-bef4-bd33b32041b2" targetNamespace="http://bpmn.io/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.6.1">
+  <collaboration id="Collaboration_1t8tvn7">
+    <participant id="Participant_1nauxsv" name="Usuário" processRef="Process_1" />
+    <participant id="Participant_0wvstcj" name="Sistema" processRef="Process_0j6qc87" />
+    <participant id="Participant_0s1gxdm" name="Banco de Dados" processRef="Process_1pwzmnj" />
+    <messageFlow id="Flow_0flhhhg" sourceRef="Activity_0x9rm8v" targetRef="Event_0whw44s" />
+  </collaboration>
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="Event_0whw44s" name="Pagar Pix" />
+  </process>
+  <process id="Process_0j6qc87">
+    <task id="Activity_0x9rm8v" name="Gerar qr code">
+      <outgoing>Flow_1bvltvn</outgoing>
+    </task>
+    <exclusiveGateway id="Gateway_0t67hqc" name="efetuar pagamento">
+      <incoming>Flow_1bvltvn</incoming>
+      <outgoing>Flow_0psa3i6</outgoing>
+      <outgoing>Flow_13kmmk9</outgoing>
+    </exclusiveGateway>
+    <endEvent id="Event_12blxj7" name="Cancelar pagamento">
+      <incoming>Flow_13kmmk9</incoming>
+    </endEvent>
+    <task id="Activity_19ex6h1" name="Atualizar banco">
+      <incoming>Flow_0psa3i6</incoming>
+      <dataOutputAssociation id="DataOutputAssociation_00yjwz5">
+        <targetRef>DataStoreReference_1f9jd9f</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <sequenceFlow id="Flow_1bvltvn" sourceRef="Activity_0x9rm8v" targetRef="Gateway_0t67hqc" />
+    <sequenceFlow id="Flow_0psa3i6" name="sim" sourceRef="Gateway_0t67hqc" targetRef="Activity_19ex6h1" />
+    <sequenceFlow id="Flow_13kmmk9" name="não" sourceRef="Gateway_0t67hqc" targetRef="Event_12blxj7" />
+  </process>
+  <process id="Process_1pwzmnj">
+    <dataStoreReference id="DataStoreReference_1f9jd9f" />
+  </process>
+  <bpmndi:BPMNDiagram id="BpmnDiagram_1">
+    <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Collaboration_1t8tvn7">
+      <bpmndi:BPMNShape id="Participant_1nauxsv_di" bpmnElement="Participant_1nauxsv" isHorizontal="true">
+        <omgdc:Bounds x="160" y="80" width="600" height="300" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0whw44s_di" bpmnElement="Event_0whw44s">
+        <omgdc:Bounds x="212" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="205" y="138" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0wvstcj_di" bpmnElement="Participant_0wvstcj" isHorizontal="true">
+        <omgdc:Bounds x="160" y="380" width="600" height="270" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0x9rm8v_di" bpmnElement="Activity_0x9rm8v">
+        <omgdc:Bounds x="200" y="410" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0t67hqc_di" bpmnElement="Gateway_0t67hqc" isMarkerVisible="true">
+        <omgdc:Bounds x="355" y="425" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="352" y="395" width="56" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12blxj7_di" bpmnElement="Event_12blxj7">
+        <omgdc:Bounds x="462" y="542" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="452" y="585" width="56" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19ex6h1_di" bpmnElement="Activity_19ex6h1">
+        <omgdc:Bounds x="540" y="410" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1bvltvn_di" bpmnElement="Flow_1bvltvn">
+        <omgdi:waypoint x="300" y="450" />
+        <omgdi:waypoint x="355" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0psa3i6_di" bpmnElement="Flow_0psa3i6">
+        <omgdi:waypoint x="405" y="450" />
+        <omgdi:waypoint x="540" y="450" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="464" y="432" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13kmmk9_di" bpmnElement="Flow_13kmmk9">
+        <omgdi:waypoint x="380" y="475" />
+        <omgdi:waypoint x="380" y="560" />
+        <omgdi:waypoint x="462" y="560" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="410" y="543" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_0s1gxdm_di" bpmnElement="Participant_0s1gxdm" isHorizontal="true">
+        <omgdc:Bounds x="160" y="650" width="600" height="250" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1f9jd9f_di" bpmnElement="DataStoreReference_1f9jd9f">
+        <omgdc:Bounds x="565" y="685" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0flhhhg_di" bpmnElement="Flow_0flhhhg">
+        <omgdi:waypoint x="230" y="410" />
+        <omgdi:waypoint x="230" y="198" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_00yjwz5_di" bpmnElement="DataOutputAssociation_00yjwz5">
+        <omgdi:waypoint x="590" y="490" />
+        <omgdi:waypoint x="590" y="685" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
